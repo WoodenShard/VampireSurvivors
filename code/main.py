@@ -1,5 +1,6 @@
 from settings import *
 from player import Player
+from sprites import *
 
 class Game:
     def __init__(self):
@@ -10,8 +11,14 @@ class Game:
         self.running: bool = True
 
         self.all_sprites = pygame.sprite.Group()
+        self.collision_sprites = pygame.sprite.Group()
 
-        self.player = Player((100,200), self.all_sprites)
+        self.player = Player((100,200), (self.all_sprites, self.collision_sprites))
+
+        for _ in range(6):
+            x,y = randint(0,WINDOW_WIDTH), randint(0,WINDOW_HEIGHT)
+            w,h = randint(50,100),randint(50,100)
+            CollisionSprite((x,y),(w,h),(self.all_sprites, self.collision_sprites))
 
     def run(self):
         while self.running:
